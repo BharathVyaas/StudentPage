@@ -22,7 +22,7 @@ import brand_logo from "../../assets/brand_logo.png";
 function SideNav() {
   return (
     <nav
-      className="absolute left-0 top-0 bg-blue-800 bg-opacity-[.04] min-h-screen max-h-screen border-r-blue-400 border-opacity-20 shadow-lg shadow-blue-200 border-[1px] text-[#070707]"
+      className="fixed left-0 top-0 bg-blue-800 bg-opacity-[.04] min-h-screen max-h-screen border-r-blue-400 border-opacity-20 shadow-lg shadow-blue-200 border-[1px] text-[#070707]"
       style={{ width: "280px" }}
     >
       <div className="ms-2 mt-3 mb-3">

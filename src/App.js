@@ -1,4 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { store } from "./redux";
+import { Provider } from "react-redux";
 
 import Login from "./components/auth/Login";
 import NotFound from "./shared/NotFound";
@@ -11,7 +13,11 @@ function App() {
     { path: "*", element: <NotFound /> },
   ]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  );
 }
 
 export default App;

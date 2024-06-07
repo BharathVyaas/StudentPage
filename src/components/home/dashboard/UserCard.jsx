@@ -6,7 +6,7 @@ import WeekView from "./usercard/Weekview";
 function UserCard() {
   return (
     <>
-      <div className="shadow shadow-blue-200 text-[#0f0f0f]">
+      <div className="shadow shadow-blue-200 text-[#0f0f0f] hidden">
         <Profile />
       </div>
 

@@ -15,7 +15,7 @@ const getDates = ({ minDate }) => {
 const getFormattedDate = (_date) => {
   const day = _date.toLocaleString("en-us", { weekday: "short" });
   const date = _date.getDate();
-  const month = _date.toLocaleString("en-us", { month: "short" });
+  //const month = _date.toLocaleString("en-us", { month: "short" });
 
   return (
     <div className="flex flex-col items-center max-h-full overflow-hidden">
