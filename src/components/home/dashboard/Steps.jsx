@@ -30,7 +30,7 @@ function VerticalLinearStepperComponent({ dailyTasks, getDailyTasks }) {
 
   useEffect(() => {
     getDailyTasks({ studentId: 1113, date: new Date() });
-  }, []);
+  }, [getDailyTasks]);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
