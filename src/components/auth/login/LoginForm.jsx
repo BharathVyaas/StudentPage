@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { connect } from "react-redux";
+import { loginDispatch } from "../../../redux/actions/auth";
 
-function LoginForm() {
-  const [email, setEmail] = useState();
-  const [pwd, setPwd] = useState();
+function LoginFormComponent({ _userName, _isAuthenticated, login }) {
+  const [uname, setUname] = useState(_userName || "");
+  const [email] = useState("");
+  const [pwd] = useState("OyujiWrSN");
 
+  const [isUnameValid, setIsUnameValid] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPwdValid, setIsPwdValid] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
@@ -20,6 +24,14 @@ function LoginForm() {
   }, [email, isEmailValid, setIsEmailValid]);
 
   useEffect(() => {
+    if (uname.length > 4) {
+      if (!isUnameValid) setIsUnameValid(true);
+    } else {
+      if (isUnameValid) setIsUnameValid(false);
+    }
+  }, [uname, isUnameValid, setIsUnameValid]);
+
+  useEffect(() => {
     if (pwd) {
       if (!isPwdValid) setIsPwdValid(true);
     } else {
@@ -28,23 +40,33 @@ function LoginForm() {
   }, [pwd, isPwdValid, setIsPwdValid]);
 
   useEffect(() => {
-    if (isEmailValid && isPwdValid) {
+    if (isUnameValid && isPwdValid) {
       if (!isFormValid) setIsFormValid(true);
     } else {
       if (isFormValid) setIsFormValid(false);
     }
-  }, [isEmailValid, isPwdValid, isFormValid, setIsFormValid]);
+  }, [isUnameValid, isPwdValid, isFormValid, setIsFormValid]);
 
-  const onEmailChage = (e) => {
-    setEmail(e.target.value);
+  useEffect(() => {
+    if (_isAuthenticated) {
+      navigate("/");
+    }
+  }, [_isAuthenticated, navigate]);
+
+  const onUnameChage = (e) => {
+    setUname(e.target.value);
   };
 
-  const onPwdChange = (e) => {
-    setPwd(e.target.value);
-  };
+  // const onEmailChage = (e) => {
+  //   setEmail(e.target.value);
+  // };
+
+  // const onPwdChange = (e) => {
+  //   setPwd(e.target.value);
+  // };
 
   const submitHandler = () => {
-    navigate("/");
+    if (isFormValid) login({ userName: uname, password: pwd });
   };
 
   return (
@@ -53,17 +75,17 @@ function LoginForm() {
 
       <div className="mt-10 space-y-6 text-base">
         <div className="w-full flex flex-col">
-          <label htmlFor="email">
-            <span>Email</span>
+          <label htmlFor="uname">
+            <span>User name</span>
             <span className="ms-[.1rem]">*</span>
           </label>
           <input
-            id="email"
-            type="email"
-            name="email"
-            placeholder="main@example.com"
-            value={email}
-            onChange={onEmailChage}
+            id="uname"
+            type="uname"
+            name="uname"
+            placeholder="john Doe"
+            value={uname}
+            onChange={onUnameChage}
             className="p-2 mt-1 bg-blue-800 bg-opacity-[.07] rounded-t border-b-[#070707] border-b-2 outline-none"
           />
         </div>
@@ -79,7 +101,7 @@ function LoginForm() {
             name="pwd"
             placeholder="OyujiWrSN"
             value={pwd}
-            onChange={onPwdChange}
+            onChange={() => {}}
             className="p-2 mt-1 bg-blue-800 bg-opacity-[.07] rounded-t border-b-[#070707] border-b-2 outline-none"
           />
         </div>
@@ -90,12 +112,13 @@ function LoginForm() {
           Forgot Mail?
         </p>
         <p className="text-center text-sm cursor-pointer underline">
-          Don't hav Account?
+          Don't have Account?
         </p>
       </div>
 
       <div className="w-full flex justify-center">
         <button
+          disabled={!isFormValid}
           onClick={submitHandler}
           className="text-lg w-40 h-[2.6rem] bg-blue-800 bg-opacity-[.05] hover:bg-opacity-[.14] rounded border-b-[#070707] border-b-2 cursor-pointer"
         >
@@ -105,5 +128,16 @@ function LoginForm() {
     </div>
   );
 }
+
+const mapState = (state) => ({
+  _userName: state.user.userName,
+  _isAuthenticated: state.user.isAuthenticated,
+});
+
+const mapDispatch = {
+  login: loginDispatch,
+};
+
+const LoginForm = connect(mapState, mapDispatch)(LoginFormComponent);
 
 export default LoginForm;

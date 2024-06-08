@@ -1,11 +1,11 @@
 import {
-  Box,
   List,
   ListItem,
   ListItemAvatar,
   ListItemText,
   MenuItem,
   MenuList,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import Divider from "@mui/material/Divider";
@@ -30,10 +30,6 @@ function SideNav() {
       <Profile />
 
       <MenuList>
-        <Box className="my-3" marginLeft={2}>
-          <Typography>Navigation</Typography>
-        </Box>
-
         <MenuItem sx={{ paddingBlock: 0, marginBlock: 0 }}>
           <List sx={{ paddingBlock: 0, marginBlock: 0.4 }} className="w-full">
             <ListItem className="bg-blue-800 bg-opacity-20 rounded">
@@ -46,27 +42,16 @@ function SideNav() {
         </MenuItem>
 
         <MenuItem sx={{ paddingBlock: 0, marginBlock: 0 }}>
-          <ListItem sx={{ paddingBlock: 0, marginBlock: 0.8 }}>
-            <ListItemAvatar>
-              <ArticleIcon fontSize="medium" />
-            </ListItemAvatar>
-            <Typography variant="body1">Results</Typography>
-          </ListItem>
+          <Tooltip title="Under developement">
+            <ListItem sx={{ paddingBlock: 0, marginBlock: 0.8 }}>
+              <ListItemAvatar>
+                <ArticleIcon fontSize="medium" />
+              </ListItemAvatar>
+              <Typography variant="body1">Results</Typography>
+            </ListItem>
+          </Tooltip>
         </MenuItem>
       </MenuList>
-
-      <Box
-        position="absolute"
-        width="100%"
-        bottom={8}
-        left={0}
-        display="flex"
-        justifyContent="center"
-      >
-        <button className="w-[90%] text-[#0f0f0f] py-[.30rem] pt-[.40rem] bg-red-800 bg-opacity-30 rounded hover:bg-opacity-30">
-          Need Help<span className="ms-[.08rem]">?</span>
-        </button>
-      </Box>
     </nav>
   );
 }

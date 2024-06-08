@@ -1,7 +1,18 @@
+import { connect } from "react-redux";
 import Dashboard from "../../components/home/Dashboard";
 import MainNav from "../../ui/home/MainNav";
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
 
-function Home() {
+function HomeComponent({ isAuthenticated }) {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/login");
+    }
+  }, [isAuthenticated]);
+
   return (
     <>
       <header className="relative">
@@ -21,5 +32,11 @@ function Home() {
     </>
   );
 }
+
+const mapState = (state) => ({
+  isAuthenticated: state.user.isAuthenticated,
+});
+
+const Home = connect(mapState, null)(HomeComponent);
 
 export default Home;

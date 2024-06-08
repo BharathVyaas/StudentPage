@@ -1,14 +1,11 @@
-import React, { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
-const CustomCalendar = () => {
-  const [value, setValue] = useState(new Date());
-
+const CustomCalendar = ({ selectedDate, setSelectedDate }) => {
   return (
     <Calendar
-      onChange={setValue}
-      value={value}
+      onChange={setSelectedDate}
+      value={selectedDate}
       tileClassName={({ date, view }) =>
         (view === "month" && date.getDay() === 0) || date.getDay() === 6
           ? "weekend-day"
