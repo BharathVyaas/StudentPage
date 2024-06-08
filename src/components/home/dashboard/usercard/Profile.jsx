@@ -7,12 +7,12 @@ function Profile() {
     <Card
       elevation={0}
       sx={{ backgroundColor: "transparent" }}
-      className="p-2 flex"
+      className="p-2 flex items-center"
     >
       <CardMedia
         className="rounded-full"
         component="img"
-        sx={{ width: 80, height: 80 }}
+        sx={{ width: 60, height: 60 }}
         image={userplaceholder}
         alt="Live from space album cover"
       />

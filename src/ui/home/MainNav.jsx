@@ -10,12 +10,8 @@ import {
 } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import HomeIcon from "@mui/icons-material/Home";
-import CodeIcon from "@mui/icons-material/Code";
-import AssessmentIcon from "@mui/icons-material/Assessment";
-import TerminalIcon from "@mui/icons-material/Terminal";
-import NoteIcon from "@mui/icons-material/Note";
+import Profile from "./mainnav/Profile";
 import ArticleIcon from "@mui/icons-material/Article";
-import QuizIcon from "@mui/icons-material/Quiz";
 
 import brand_logo from "../../assets/brand_logo.png";
 
@@ -31,10 +27,13 @@ function SideNav() {
 
       <Divider />
 
+      <Profile />
+
       <MenuList>
         <Box className="my-3" marginLeft={2}>
           <Typography>Navigation</Typography>
         </Box>
+
         <MenuItem sx={{ paddingBlock: 0, marginBlock: 0 }}>
           <List sx={{ paddingBlock: 0, marginBlock: 0.4 }} className="w-full">
             <ListItem className="bg-blue-800 bg-opacity-20 rounded">
@@ -44,64 +43,6 @@ function SideNav() {
               <ListItemText primary="dashboard" />
             </ListItem>
           </List>
-        </MenuItem>
-      </MenuList>
-
-      <Divider />
-
-      <MenuList>
-        <Box className="my-3" marginLeft={2}>
-          <Typography>My Jurny</Typography>
-        </Box>
-        <MenuItem sx={{ paddingBlock: 0, marginBlock: 0 }}>
-          <ListItem sx={{ paddingBlock: 0, marginBlock: 0.8 }}>
-            <ListItemAvatar>
-              <CodeIcon fontSize="medium" />
-            </ListItemAvatar>
-            <Typography variant="body1">Playground</Typography>
-          </ListItem>
-        </MenuItem>
-
-        <MenuItem sx={{ paddingBlock: 0, marginBlock: 0 }}>
-          <ListItem sx={{ paddingBlock: 0, marginBlock: 0.8 }}>
-            <ListItemAvatar>
-              <AssessmentIcon fontSize="medium" />
-            </ListItemAvatar>
-            <Typography variant="body1">Assessment</Typography>
-          </ListItem>
-        </MenuItem>
-
-        <MenuItem sx={{ paddingBlock: 0, marginBlock: 0 }}>
-          <ListItem sx={{ paddingBlock: 0, marginBlock: 0.8 }}>
-            <ListItemAvatar>
-              <TerminalIcon fontSize="medium" />
-            </ListItemAvatar>
-            <Typography variant="body1">Solve Problems</Typography>
-          </ListItem>
-        </MenuItem>
-
-        <MenuItem sx={{ paddingBlock: 0, marginBlock: 0 }}>
-          <ListItem sx={{ paddingBlock: 0, marginBlock: 0.8 }}>
-            <ListItemAvatar>
-              <NoteIcon fontSize="medium" />
-            </ListItemAvatar>
-            <Typography variant="body1">My Notes</Typography>
-          </ListItem>
-        </MenuItem>
-      </MenuList>
-
-      <MenuList>
-        <Box className="my-3" marginLeft={2}>
-          <Typography>Exam Track</Typography>
-        </Box>
-
-        <MenuItem sx={{ paddingBlock: 0, marginBlock: 0 }}>
-          <ListItem sx={{ paddingBlock: 0, marginBlock: 0.8 }}>
-            <ListItemAvatar>
-              <QuizIcon fontSize="medium" />
-            </ListItemAvatar>
-            <Typography variant="body1">Tests</Typography>
-          </ListItem>
         </MenuItem>
 
         <MenuItem sx={{ paddingBlock: 0, marginBlock: 0 }}>
