@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getMcqandProgramsService } from "./dashboard/getMcqandProgramService";
 
-const baseURL = "http://localhost:3009/";
+const baseURL = "http://49.207.10.13:3009/";
 
 const api = axios.create({ baseURL });
 

@@ -96,20 +96,11 @@ function LoginFormComponent({
           </div>
         </div>
 
-        <div className="flex justify-center space-x-6 my-8">
-          <p className="text-center text-sm cursor-pointer underline">
-            Forgot Mail?
-          </p>
-          <p className="text-center text-sm cursor-pointer underline">
-            Don't have Account?
-          </p>
-        </div>
-
-        <div className="w-full flex justify-center">
+        <div className="w-full flex justify-center my-14">
           <button
             disabled={!isFormValid}
             onClick={submitHandler}
-            className="text-lg w-40 h-[2.6rem] bg-blue-800 bg-opacity-[.05] hover:bg-opacity-[.14] rounded border-b-[#070707] border-b-2 cursor-pointer"
+            className="text-lg w-40 h-[2.6rem] bg-blue-800 bg-opacity-[.14] hover:bg-opacity-[.18] rounded border-b-[#070707] border-b-2 cursor-pointer"
           >
             Login
           </button>

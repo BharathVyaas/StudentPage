@@ -4,6 +4,7 @@ import StepContent from "@mui/material/StepContent";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import StickyNote2Icon from "@mui/icons-material/StickyNote2";
 
 function StepRenderer({
   label,
@@ -18,11 +19,6 @@ function StepRenderer({
   return (
     <Step key={step.label}>
       <StepLabel
-        optional={
-          index === 2 ? (
-            <Typography variant="caption">Last step</Typography>
-          ) : null
-        }
         sx={{
           "& .Mui-completed": {
             color: "#0a0a0f !important",
@@ -67,6 +63,8 @@ function StepRenderer({
             >
               Back
             </Button>
+
+            <Button endIcon={<StickyNote2Icon />}>Results </Button>
           </div>
         </Box>
       </StepContent>

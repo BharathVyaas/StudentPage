@@ -40,17 +40,6 @@ function SideNav() {
             </ListItem>
           </List>
         </MenuItem>
-
-        <MenuItem sx={{ paddingBlock: 0, marginBlock: 0 }}>
-          <Tooltip title="Under developement">
-            <ListItem sx={{ paddingBlock: 0, marginBlock: 0.8 }}>
-              <ListItemAvatar>
-                <ArticleIcon fontSize="medium" />
-              </ListItemAvatar>
-              <Typography variant="body1">Results</Typography>
-            </ListItem>
-          </Tooltip>
-        </MenuItem>
       </MenuList>
     </nav>
   );

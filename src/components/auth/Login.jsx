@@ -15,7 +15,7 @@ function Login() {
       </div>
 
       <main className="min-h-screen min-w-full grid place-content-center">
-        <div className="w-[480px] h-[480px] bg-blue-800 rounded shadow-lg shadow-[#af1e1e16] bg-opacity-100">
+        <div className="w-[480px] h-[460px] bg-blue-800 rounded shadow-lg shadow-[#af1e1e16] bg-opacity-100">
           <div className="w-full h-full bg-white rounded shadow shadow-[#1e40af2a] bg-opacity-[.89]">
             <LoginForm />
           </div>

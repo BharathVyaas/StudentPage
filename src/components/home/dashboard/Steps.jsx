@@ -7,7 +7,8 @@ import StepLabel from "@mui/material/StepLabel";
 import StepContent from "@mui/material/StepContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import CustomStepIcon from "./steps/CustomStepIcon"; // import your CustomStepIcon component
+import CustomStepIcon from "./steps/CustomStepIcon";
+import StickyNote2Icon from "@mui/icons-material/StickyNote2";
 
 function VerticalLinearStepperComponent({
   mcqAndProgramData,
@@ -75,13 +76,13 @@ function VerticalLinearStepperComponent({
                   <i className="font-semibold">text link: </i>
                   <a
                     href={
-                      step.Qtype
-                        ? `https://www.nareshit.net/previewexampage?TestId=${step.TestId}&TransactionId=${step.TransactionId}`
+                      step.Qtype === "MCQ"
+                        ? `http://49.207.10.13:3009/MCQExamPage?testID=${step.TestId}&transactionId=${step.TransactionId}&UserName=Admin@nareshit.net`
                         : `http://codeide.nareshit.net/problem/${step.ProgramId}`
                     }
                     className="text-blue-500 font-medium underline"
                   >
-                    {step.Qtype
+                    {step.Qtype === "MCQ"
                       ? "https://www.nareshit.net/previewexampage"
                       : "http://codeide.nareshit.net/problem/"}
                   </a>
@@ -89,7 +90,7 @@ function VerticalLinearStepperComponent({
                 </p>
                 {mcqAndProgramData.length > 1 && (
                   <Box sx={{ mb: 2 }}>
-                    <div>
+                    <div className="flex items-baseline">
                       <Button
                         variant="contained"
                         onClick={() => handleNext(index)}
@@ -110,13 +111,27 @@ function VerticalLinearStepperComponent({
                         onClick={() => handleBack(index)}
                         sx={{
                           mt: 1,
-                          mr: 1,
                           color: "#05496b",
                           fontSize: 10,
                         }}
                       >
                         Back
                       </Button>
+
+                      {mcqAndProgramData.ExamStatus === "Attempted" && (
+                        <button
+                          onClick={() => {
+                            const url = `http://49.207.10.13:3009/studentResultPage?testId=${step.TestId}&username=Admin@nareshit.net&transactionID=${step.TransactionId}`;
+                            window.open(url, "_blank", "noopener,noreferrer");
+                          }}
+                          className="text-sm text-blue-800 font-semibold underline"
+                        >
+                          results{" "}
+                          <span>
+                            <StickyNote2Icon sx={{ fontSize: "1.2rem" }} />
+                          </span>
+                        </button>
+                      )}
                     </div>
                   </Box>
                 )}
