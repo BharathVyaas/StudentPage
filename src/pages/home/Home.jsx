@@ -11,7 +11,7 @@ function HomeComponent({ isAuthenticated }) {
     if (!isAuthenticated) {
       navigate("/login");
     }
-  }, [isAuthenticated]);
+  }, [navigate, isAuthenticated]);
 
   return (
     <>

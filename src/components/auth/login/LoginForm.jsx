@@ -1,51 +1,24 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { connect } from "react-redux";
 import { loginDispatch } from "../../../redux/actions/auth";
+import {
+  setPassword,
+  setUserName,
+} from "../../../redux/slices/user/loginSlice";
+import { useEffect } from "react";
 
-function LoginFormComponent({ _userName, _isAuthenticated, login }) {
-  const [uname, setUname] = useState(_userName || "");
-  const [email] = useState("");
-  const [pwd] = useState("OyujiWrSN");
-
-  const [isUnameValid, setIsUnameValid] = useState(false);
-  const [isEmailValid, setIsEmailValid] = useState(false);
-  const [isPwdValid, setIsPwdValid] = useState(false);
-  const [isFormValid, setIsFormValid] = useState(false);
-
+function LoginFormComponent({
+  _userName,
+  _isAuthenticated,
+  userName,
+  password,
+  isFormValid,
+  loginState,
+  login,
+  onNameChange,
+  onPwdChange,
+}) {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (email) {
-      if (!isEmailValid) setIsEmailValid(true);
-    } else {
-      if (isEmailValid) setIsEmailValid(false);
-    }
-  }, [email, isEmailValid, setIsEmailValid]);
-
-  useEffect(() => {
-    if (uname.length > 4) {
-      if (!isUnameValid) setIsUnameValid(true);
-    } else {
-      if (isUnameValid) setIsUnameValid(false);
-    }
-  }, [uname, isUnameValid, setIsUnameValid]);
-
-  useEffect(() => {
-    if (pwd) {
-      if (!isPwdValid) setIsPwdValid(true);
-    } else {
-      if (isPwdValid) setIsPwdValid(false);
-    }
-  }, [pwd, isPwdValid, setIsPwdValid]);
-
-  useEffect(() => {
-    if (isUnameValid && isPwdValid) {
-      if (!isFormValid) setIsFormValid(true);
-    } else {
-      if (isFormValid) setIsFormValid(false);
-    }
-  }, [isUnameValid, isPwdValid, isFormValid, setIsFormValid]);
 
   useEffect(() => {
     if (_isAuthenticated) {
@@ -53,20 +26,8 @@ function LoginFormComponent({ _userName, _isAuthenticated, login }) {
     }
   }, [_isAuthenticated, navigate]);
 
-  const onUnameChage = (e) => {
-    setUname(e.target.value);
-  };
-
-  // const onEmailChage = (e) => {
-  //   setEmail(e.target.value);
-  // };
-
-  // const onPwdChange = (e) => {
-  //   setPwd(e.target.value);
-  // };
-
   const submitHandler = () => {
-    if (isFormValid) login({ userName: uname, password: pwd });
+    login({ userName: userName.value, password: password.value });
   };
 
   return (
@@ -84,8 +45,8 @@ function LoginFormComponent({ _userName, _isAuthenticated, login }) {
             type="uname"
             name="uname"
             placeholder="john Doe"
-            value={uname}
-            onChange={onUnameChage}
+            value={userName.value}
+            onChange={(e) => onNameChange({ value: e.target.value })}
             className="p-2 mt-1 bg-blue-800 bg-opacity-[.07] rounded-t border-b-[#070707] border-b-2 outline-none"
           />
         </div>
@@ -100,8 +61,8 @@ function LoginFormComponent({ _userName, _isAuthenticated, login }) {
             type="password"
             name="pwd"
             placeholder="OyujiWrSN"
-            value={pwd}
-            onChange={() => {}}
+            value={password.value}
+            onChange={(e) => onPwdChange({ value: e.target.value })}
             className="p-2 mt-1 bg-blue-800 bg-opacity-[.07] rounded-t border-b-[#070707] border-b-2 outline-none"
           />
         </div>
@@ -118,7 +79,6 @@ function LoginFormComponent({ _userName, _isAuthenticated, login }) {
 
       <div className="w-full flex justify-center">
         <button
-          disabled={!isFormValid}
           onClick={submitHandler}
           className="text-lg w-40 h-[2.6rem] bg-blue-800 bg-opacity-[.05] hover:bg-opacity-[.14] rounded border-b-[#070707] border-b-2 cursor-pointer"
         >
@@ -132,10 +92,17 @@ function LoginFormComponent({ _userName, _isAuthenticated, login }) {
 const mapState = (state) => ({
   _userName: state.user.userName,
   _isAuthenticated: state.user.isAuthenticated,
+
+  userName: state.login.userName,
+  password: state.login.password,
+  loginState: state.login.loginState,
+  isFormValid: state.login.isFormValid,
 });
 
 const mapDispatch = {
   login: loginDispatch,
+  onNameChange: setUserName,
+  onPwdChange: setPassword,
 };
 
 const LoginForm = connect(mapState, mapDispatch)(LoginFormComponent);
