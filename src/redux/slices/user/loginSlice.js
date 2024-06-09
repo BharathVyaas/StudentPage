@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const baseState = {
   isFormValid: false,
-  loginState: "idel",
   userName: {
     value: "",
     isDirty: false,
@@ -34,6 +33,12 @@ export const loginSlice = createSlice({
       if (!state.userName.isValid) {
         if (state.userName.value.length > 3) {
           state.userName.isValid = true;
+        }
+      }
+
+      if (state.userName.isValid) {
+        if (state.userName.value.length <= 3) {
+          state.userName.isValid = false;
         }
       }
 
@@ -69,15 +74,6 @@ export const loginSlice = createSlice({
         state.email.isDirty = true;
       }
     },
-    loginRequest(state) {
-      state.loginState = "request";
-    },
-    loginSuccess(state) {
-      state.loginState = "response";
-    },
-    loginFailure(state) {
-      state.loginState = "reject";
-    },
     resetLoginState(state) {
       state.userName = { ...baseState.userName };
       state.password = { ...baseState.password };
@@ -86,12 +82,5 @@ export const loginSlice = createSlice({
   },
 });
 
-export const {
-  setUserName,
-  setPassword,
-  setEmail,
-  loginRequest,
-  loginSuccess,
-  loginFailure,
-  resetLoginState,
-} = loginSlice.actions;
+export const { setUserName, setPassword, setEmail, resetLoginState } =
+  loginSlice.actions;

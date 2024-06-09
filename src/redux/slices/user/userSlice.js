@@ -46,6 +46,7 @@ export const userSlice = createSlice({
     loginFailure(state) {
       state.isError = true;
       state.isLoading = false;
+      state.state = "reject";
     },
     logout(state) {
       state.userId = baseState.userId;

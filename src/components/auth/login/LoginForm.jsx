@@ -13,7 +13,7 @@ function LoginFormComponent({
   userName,
   password,
   isFormValid,
-  loginState,
+  formState,
   login,
   onNameChange,
   onPwdChange,
@@ -27,63 +27,93 @@ function LoginFormComponent({
   }, [_isAuthenticated, navigate]);
 
   const submitHandler = () => {
+    console.log("login");
     login({ userName: userName.value, password: password.value });
   };
+
+  console.log(formState, isFormValid);
 
   return (
     <div className="py-12 px-5 flex flex-col text-[#070707] montserrat-md">
       <h1 className="w-full text-center text-[2rem]">Sign In</h1>
 
-      <div className="mt-10 space-y-6 text-base">
-        <div className="w-full flex flex-col">
-          <label htmlFor="uname">
-            <span>User name</span>
-            <span className="ms-[.1rem]">*</span>
-          </label>
-          <input
-            id="uname"
-            type="uname"
-            name="uname"
-            placeholder="john Doe"
-            value={userName.value}
-            onChange={(e) => onNameChange({ value: e.target.value })}
-            className="p-2 mt-1 bg-blue-800 bg-opacity-[.07] rounded-t border-b-[#070707] border-b-2 outline-none"
-          />
+      <div
+        style={{ marginTop: formState === "reject" ? "1.2rem" : "2rem" }}
+        className="text-base"
+      >
+        {formState === "reject" && (
+          <small className="text-[#ed2224] text-center block mb-[.3rem]">
+            Username or Password is Invalid.
+          </small>
+        )}
+        <div className="space-y-6">
+          <div className="w-full flex flex-col">
+            <label htmlFor="uname">
+              <span>User name</span>
+              <span className="ms-[.1rem]">*</span>
+            </label>
+            <input
+              id="uname"
+              type="uname"
+              name="uname"
+              placeholder="john Doe"
+              value={userName.value}
+              onChange={(e) => onNameChange({ value: e.target.value })}
+              style={{
+                borderBlockEnd:
+                  userName.isDirty && userName.isValid
+                    ? "2px solid #070707"
+                    : userName.isDirty
+                    ? "2px solid #ed2224"
+                    : "2px solid #070707",
+              }}
+              className="p-2 mt-1 bg-blue-800 bg-opacity-[.07] rounded-t outline-none"
+            />
+          </div>
+
+          <div className="w-full flex flex-col">
+            <label htmlFor="pwd">
+              <span>Password</span>
+              <span className="ms-[.1rem]">*</span>
+            </label>
+            <input
+              id="pwd"
+              type="password"
+              name="pwd"
+              placeholder="OyujiWrSN"
+              value={password.value}
+              onChange={(e) => onPwdChange({ value: e.target.value })}
+              style={{
+                borderBlockEnd:
+                  password.isDirty && password.isValid
+                    ? "2px solid #070707"
+                    : password.isDirty
+                    ? "2px solid #ed2224"
+                    : "2px solid #070707",
+              }}
+              className="p-2 mt-1 bg-blue-800 bg-opacity-[.07] rounded-t border-b-[#070707] border-b-2 outline-none"
+            />
+          </div>
         </div>
 
-        <div className="w-full flex flex-col">
-          <label htmlFor="pwd">
-            <span>Password</span>
-            <span className="ms-[.1rem]">*</span>
-          </label>
-          <input
-            id="pwd"
-            type="password"
-            name="pwd"
-            placeholder="OyujiWrSN"
-            value={password.value}
-            onChange={(e) => onPwdChange({ value: e.target.value })}
-            className="p-2 mt-1 bg-blue-800 bg-opacity-[.07] rounded-t border-b-[#070707] border-b-2 outline-none"
-          />
+        <div className="flex justify-center space-x-6 my-8">
+          <p className="text-center text-sm cursor-pointer underline">
+            Forgot Mail?
+          </p>
+          <p className="text-center text-sm cursor-pointer underline">
+            Don't have Account?
+          </p>
         </div>
-      </div>
 
-      <div className="flex justify-center space-x-6 my-8">
-        <p className="text-center text-sm cursor-pointer underline">
-          Forgot Mail?
-        </p>
-        <p className="text-center text-sm cursor-pointer underline">
-          Don't have Account?
-        </p>
-      </div>
-
-      <div className="w-full flex justify-center">
-        <button
-          onClick={submitHandler}
-          className="text-lg w-40 h-[2.6rem] bg-blue-800 bg-opacity-[.05] hover:bg-opacity-[.14] rounded border-b-[#070707] border-b-2 cursor-pointer"
-        >
-          Login
-        </button>
+        <div className="w-full flex justify-center">
+          <button
+            disabled={!isFormValid}
+            onClick={submitHandler}
+            className="text-lg w-40 h-[2.6rem] bg-blue-800 bg-opacity-[.05] hover:bg-opacity-[.14] rounded border-b-[#070707] border-b-2 cursor-pointer"
+          >
+            Login
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -95,7 +125,7 @@ const mapState = (state) => ({
 
   userName: state.login.userName,
   password: state.login.password,
-  loginState: state.login.loginState,
+  formState: state.user.state,
   isFormValid: state.login.isFormValid,
 });
 
