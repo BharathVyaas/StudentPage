@@ -9,29 +9,24 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import CustomStepIcon from "./steps/CustomStepIcon";
 import StickyNote2Icon from "@mui/icons-material/StickyNote2";
+import { useNavigate } from "react-router-dom";
 
 function VerticalLinearStepperComponent({
   userName,
+  email,
   mcqAndProgramData,
   mcqAndProgramIsError,
   mcqAndProgramIsLoading,
 }) {
+  const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState(0);
 
   useEffect(() => {
     setActiveStep(0);
   }, [mcqAndProgramData]);
 
-  const handleNext = (i) => {
-    if (mcqAndProgramData && activeStep < mcqAndProgramData.length - 1) {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    } else if (mcqAndProgramData) {
-      setActiveStep(0);
-    }
-  };
-
-  const handleBack = (i) => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  const stepHandler = (i) => {
+    setActiveStep(i);
   };
 
   if (mcqAndProgramIsLoading)
@@ -48,7 +43,11 @@ function VerticalLinearStepperComponent({
       {mcqAndProgramData ? (
         <Stepper activeStep={activeStep} orientation="vertical">
           {mcqAndProgramData.map((step, index) => (
-            <Step key={step.TransactionId || step.TestId}>
+            <Step
+              onClick={() => stepHandler(index)}
+              className="cursor-pointer"
+              key={step.TransactionId || step.TestId}
+            >
               <StepLabel
                 StepIconComponent={(props) => (
                   <CustomStepIcon {...props} icon={index + 1} />
@@ -69,77 +68,46 @@ function VerticalLinearStepperComponent({
               <StepContent>
                 <Typography variant="body2">{step.TestDescription}</Typography>
                 <p className="py-1">
-                  <i className="font-semibold">text link: </i>
-                  {step.IsResultSubmited ? (
-                    <a className="text-blue-500 font-medium line-through">
-                      {step.Qtype === "MCQ"
-                        ? "https://www.nareshit.net/MCQExamPage"
-                        : "http://codeide.nareshit.net/problem/"}
-                    </a>
-                  ) : (
-                    <a
-                      href={
-                        step.Qtype === "MCQ"
-                          ? `http://49.207.10.13:3009/MCQExamPage?testID=${step.TestId}&transactionId=${step.TransactionId}&UserName=${userName}`
-                          : `http://codeide.nareshit.net/problem/${step.ProgramId}`
-                      }
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-500 font-medium underline"
+                  {step.IsResultSubmited || step.IsResultSubmitted ? (
+                    <button
+                      onClick={() => {
+                        if (step.Qtype === "MCQ") {
+                          const url = `http://49.207.10.13:3009/studentResultPage?testId=${step.TestId}&username=${userName}&transactionID=${step.TransactionId}`;
+                          window.open(url, "_blank", "noopener,noreferrer");
+                        } else {
+                          navigate(
+                            `/program-results?programId=${step.ProgramId}`
+                          );
+                        }
+                      }}
+                      className="text-sm text-blue-800 font-semibold underline"
                     >
-                      {step.Qtype === "MCQ"
-                        ? "https://www.nareshit.net/MCQExamPage"
-                        : "http://codeide.nareshit.net/problem/"}
-                    </a>
+                      view test results{" "}
+                      <span>
+                        <StickyNote2Icon sx={{ fontSize: "1.2rem" }} />
+                      </span>
+                    </button>
+                  ) : (
+                    <>
+                      <Button
+                        onClick={() => {
+                          const url =
+                            step.Qtype === "MCQ"
+                              ? `http://49.207.10.13:3009/MCQExamPage?testID=${step.TestId}&transactionId=${step.TransactionId}&UserName=${userName}`
+                              : `http://localhost:3010/problem/${step.ProgramId}?email=${email}&username=${userName}`;
+                          window.open(url, "_blank", "noopener,noreferrer");
+                        }}
+                        sx={{
+                          color: "rgb(30 64 175)",
+                          fontSize: "500",
+                        }}
+                        size="small"
+                      >
+                        Start Test
+                      </Button>
+                    </>
                   )}
                 </p>
-                {mcqAndProgramData.length > 1 && (
-                  <Box sx={{ mb: 2 }}>
-                    <div className="flex items-baseline">
-                      <Button
-                        variant="contained"
-                        onClick={() => handleNext(index)}
-                        sx={{
-                          mt: 1,
-                          mr: 1,
-                          fontSize: 10,
-                          background: "#075985",
-                          "&:hover": {
-                            backgroundColor: "#05496b",
-                          },
-                        }}
-                      >
-                        Next
-                      </Button>
-                      <Button
-                        disabled={index === 0}
-                        onClick={() => handleBack(index)}
-                        sx={{
-                          mt: 1,
-                          color: "#05496b",
-                          fontSize: 10,
-                        }}
-                      >
-                        Back
-                      </Button>
-
-                      {step.IsResultSubmited && (
-                        <button
-                          onClick={() => {
-                            const url = `http://49.207.10.13:3009/studentResultPage?testId=${step.TestId}&username=${userName}&transactionID=${step.TransactionId}`;
-                            window.open(url, "_blank", "noopener,noreferrer");
-                          }}
-                          className="text-sm text-blue-800 font-semibold underline"
-                        >
-                          results{" "}
-                          <span>
-                            <StickyNote2Icon sx={{ fontSize: "1.2rem" }} />
-                          </span>
-                        </button>
-                      )}
-                    </div>
-                  </Box>
-                )}
               </StepContent>
             </Step>
           ))}
@@ -157,6 +125,7 @@ function VerticalLinearStepperComponent({
 
 const mapState = (state) => ({
   userName: state.user.userName,
+  email: state.user.email,
   mcqAndProgramData: state.mcqsandprograms.data,
   mcqAndProgramIsError: state.mcqsandprograms.isError,
   mcqAndProgramIsLoading: state.mcqsandprograms.isLoading,

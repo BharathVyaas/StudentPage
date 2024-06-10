@@ -1,19 +1,18 @@
-import { connect } from "react-redux";
-import { useEffect } from "react";
-import { useNavigate } from "react-router";
-
-import Dashboard from "../../components/home/Dashboard";
+import { useLocation, useNavigate } from "react-router";
+import ProgramResults from "../../components/results/ProgramResults";
 import MainNav from "../../ui/home/MainNav";
-import TopNav from "../../ui/home/TopNav";
+import { useEffect } from "react";
 
-function HomeComponent({ isAuthenticated }) {
+function Results() {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const programId = queryParams.get("programId");
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/login");
-    }
-  }, [navigate, isAuthenticated]);
+    if (!programId) navigate("/");
+  }, []);
 
   return (
     <>
@@ -28,17 +27,11 @@ function HomeComponent({ isAuthenticated }) {
       </div>
 
       <main style={{ marginInlineStart: "280px" }}>
-        <Dashboard />
+        <ProgramResults />
       </main>
       <footer></footer>
     </>
   );
 }
 
-const mapState = (state) => ({
-  isAuthenticated: state.user.isAuthenticated,
-});
-
-const Home = connect(mapState, null)(HomeComponent);
-
-export default Home;
+export default Results;

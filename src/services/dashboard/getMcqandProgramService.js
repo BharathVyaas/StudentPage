@@ -6,6 +6,8 @@ export function getMcqandProgramsService(x, y) {
     const yArr = y.data?.dbresult || [];
     const dataArr = [...xArr, ...yArr];
 
+    console.log(x, y);
+
     resObj.status = x.status;
     resObj.data = {};
     resObj.data.dbresult = dataArr;

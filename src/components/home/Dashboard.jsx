@@ -25,8 +25,8 @@ function DashboardComponent({
   }, [selectedDate, getMcqandPrograms]);
 
   return (
-    <div style={{ marginInlineStart: "280px" }}>
-      <div className="pt-4 ps-4 gap-x-4 gap-y-4 flex">
+    <>
+      <div className="pt-2 ps-4 gap-x-4 gap-y-4 flex">
         <div className="w-full  xl:w-[38%] 2xl:w-[24%] p-4 py-[1.36rem]">
           <Calender
             selectedDate={selectedDate}
@@ -38,7 +38,7 @@ function DashboardComponent({
           <Steps />
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

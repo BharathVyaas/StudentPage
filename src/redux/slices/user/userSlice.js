@@ -49,6 +49,7 @@ export const userSlice = createSlice({
       state.isError = false;
       state.isPending = false;
       state.state = "resolve";
+      state.email = action.payload.email;
       state.userId = action.payload.userId;
       state.userName = action.payload.userName;
       state.firstName = action.payload.firstName;

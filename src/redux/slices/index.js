@@ -2,6 +2,7 @@ import { combineReducers } from "@reduxjs/toolkit";
 import { dailyTaskSlice, mcqsandprogramsSlice } from "./dashboard";
 import { userSlice } from "./user/userSlice";
 import { loginSlice } from "./user/loginSlice";
+import { programResultSlice } from "./result";
 
 export const rootReducer = combineReducers({
   // Auth
@@ -11,4 +12,7 @@ export const rootReducer = combineReducers({
   // Dashboard
   dailyTasks: dailyTaskSlice.reducer,
   mcqsandprograms: mcqsandprogramsSlice.reducer,
+
+  // Program
+  programResults: programResultSlice.reducer,
 });

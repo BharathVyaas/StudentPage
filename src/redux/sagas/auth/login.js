@@ -16,12 +16,20 @@ export function* loginSaga(action) {
       IsAuthenticated: isAuthenticated,
       studentId: userId,
       UserName: userName,
+      UserName: email,
       FirstName: firstName,
       LastName: lastName,
     } = res.data.dbresult[0];
 
     yield put(
-      loginSuccess({ isAuthenticated, userId, userName, firstName, lastName })
+      loginSuccess({
+        isAuthenticated,
+        userId,
+        userName,
+        firstName,
+        lastName,
+        email,
+      })
     );
   } catch (error) {
     console.log({

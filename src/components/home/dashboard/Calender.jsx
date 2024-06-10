@@ -6,11 +6,11 @@ const CustomCalendar = ({ selectedDate, setSelectedDate }) => {
     <Calendar
       onChange={setSelectedDate}
       value={selectedDate}
-      tileClassName={({ date, view }) =>
-        (view === "month" && date.getDay() === 0) || date.getDay() === 6
-          ? "weekend-day"
-          : null
-      }
+      tileClassName={({ date, view }) => {
+        if ((view === "month" && date.getDay() === 0) || date.getDay() === 6) {
+          return "week-day";
+        }
+      }}
       className="custom-calendar"
     />
   );
