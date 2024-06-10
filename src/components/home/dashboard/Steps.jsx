@@ -11,6 +11,7 @@ import CustomStepIcon from "./steps/CustomStepIcon";
 import StickyNote2Icon from "@mui/icons-material/StickyNote2";
 
 function VerticalLinearStepperComponent({
+  userName,
   mcqAndProgramData,
   mcqAndProgramIsError,
   mcqAndProgramIsLoading,
@@ -41,7 +42,7 @@ function VerticalLinearStepperComponent({
         Error please try refreshing
       </div>
     );
-  console.log(mcqAndProgramData);
+
   return (
     <Box sx={{ width: "100%", padding: 4 }}>
       {mcqAndProgramData ? (
@@ -52,11 +53,6 @@ function VerticalLinearStepperComponent({
                 StepIconComponent={(props) => (
                   <CustomStepIcon {...props} icon={index + 1} />
                 )}
-                optional={
-                  index === 2 ? (
-                    <Typography variant="caption">Last step</Typography>
-                  ) : null
-                }
                 sx={{
                   "& .Mui-completed": {
                     color: "#0a0a0f !important",
@@ -84,9 +80,11 @@ function VerticalLinearStepperComponent({
                     <a
                       href={
                         step.Qtype === "MCQ"
-                          ? `http://49.207.10.13:3009/MCQExamPage?testID=${step.TestId}&transactionId=${step.TransactionId}&UserName=Admin@nareshit.net`
+                          ? `http://49.207.10.13:3009/MCQExamPage?testID=${step.TestId}&transactionId=${step.TransactionId}&UserName=${userName}`
                           : `http://codeide.nareshit.net/problem/${step.ProgramId}`
                       }
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="text-blue-500 font-medium underline"
                     >
                       {step.Qtype === "MCQ"
@@ -128,7 +126,7 @@ function VerticalLinearStepperComponent({
                       {step.IsResultSubmited && (
                         <button
                           onClick={() => {
-                            const url = `http://49.207.10.13:3009/studentResultPage?testId=${step.TestId}&username=Admin@nareshit.net&transactionID=${step.TransactionId}`;
+                            const url = `http://49.207.10.13:3009/studentResultPage?testId=${step.TestId}&username=${userName}&transactionID=${step.TransactionId}`;
                             window.open(url, "_blank", "noopener,noreferrer");
                           }}
                           className="text-sm text-blue-800 font-semibold underline"
@@ -158,6 +156,7 @@ function VerticalLinearStepperComponent({
 }
 
 const mapState = (state) => ({
+  userName: state.user.userName,
   mcqAndProgramData: state.mcqsandprograms.data,
   mcqAndProgramIsError: state.mcqsandprograms.isError,
   mcqAndProgramIsLoading: state.mcqsandprograms.isLoading,

@@ -11,7 +11,7 @@ export function* loginSaga(action) {
     yield put(loginRequest());
 
     const res = yield call(loginApi, action.payload);
-    console.log(res);
+
     const {
       IsAuthenticated: isAuthenticated,
       studentId: userId,
@@ -20,7 +20,9 @@ export function* loginSaga(action) {
       LastName: lastName,
     } = res.data.dbresult[0];
 
-    yield put(loginSuccess({ isAuthenticated, userId, userName }));
+    yield put(
+      loginSuccess({ isAuthenticated, userId, userName, firstName, lastName })
+    );
   } catch (error) {
     console.log({
       message: error.response.data.message,

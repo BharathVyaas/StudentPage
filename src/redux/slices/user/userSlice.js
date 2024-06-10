@@ -66,9 +66,9 @@ export const userSlice = createSlice({
       state.state = "reject";
       state.statusMessage = action.payload.statusMessage;
       state.statusCode = action.payload.statusCode;
-      state.error.message = action.payload.error.message;
-      state.error.status = action.payload.error.status;
-      state.error.status = action.payload.error.isSuccessResponse;
+      state.error.message = action.payload.error?.message;
+      state.error.status = action.payload.error?.status;
+      state.error.status = action.payload.error?.isSuccessResponse;
     },
     logout(state) {
       state.userId = baseState.userId;

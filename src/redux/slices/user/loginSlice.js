@@ -59,18 +59,15 @@ export const loginSlice = createSlice({
         state.password.isDirty = true;
       }
 
-      if (!state.password.isValid && state.password.value === "Admin@123") {
+      if (action.payload.value === "Admin@123") {
         state.password.isValid = true;
+      } else {
+        state.password.isValid = false;
       }
 
-      if (state.password.isValid) {
-        if (state.password.value !== "Admin@123")
-          state.password.isValid = false;
-      }
+      if (action.payload.value === "Admin@123") state.isFormValid = true;
 
-      if (state.userName.isValid) {
-        if (state.password.isValid) state.isFormValid = true;
-      }
+      if (action.payload.value !== "Admin@123") state.isFormValid = false;
     },
     setEmail(state, action) {
       state.email.value = action.payload.value;
