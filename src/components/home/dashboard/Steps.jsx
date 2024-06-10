@@ -74,8 +74,8 @@ function VerticalLinearStepperComponent({
                 <Typography variant="body2">{step.TestDescription}</Typography>
                 <p className="py-1">
                   <i className="font-semibold">text link: </i>
-                  {mcqAndProgramData.ExamStatus === "Attempted" ? (
-                    <a className="text-blue-500 font-medium underline">
+                  {!mcqAndProgramData.IsResultSubmited ? (
+                    <a className="text-blue-500 font-medium line-through">
                       {step.Qtype === "MCQ"
                         ? "https://www.nareshit.net/previewexampage"
                         : "http://codeide.nareshit.net/problem/"}
@@ -125,7 +125,7 @@ function VerticalLinearStepperComponent({
                         Back
                       </Button>
 
-                      {mcqAndProgramData.ExamStatus === "Attempted" && (
+                      {mcqAndProgramData.IsResultSubmited && (
                         <button
                           onClick={() => {
                             const url = `http://49.207.10.13:3009/studentResultPage?testId=${step.TestId}&username=Admin@nareshit.net&transactionID=${step.TransactionId}`;
