@@ -10,10 +10,11 @@ function DashboardComponent({ userState, getMcqandPrograms }) {
 
   useEffect(() => {
     // simply adding selectedDate.toISOString().split("T")[0] returning day - 1
-    getMcqandPrograms({
-      studentId: userState.userId,
-      date: addDays(selectedDate, 1).toISOString().split("T")[0],
-    });
+    if (userState.userId && selectedDate)
+      getMcqandPrograms({
+        studentId: userState.userId,
+        date: addDays(selectedDate, 1).toISOString().split("T")[0],
+      });
   }, [selectedDate, getMcqandPrograms]);
 
   return (

@@ -41,7 +41,7 @@ function VerticalLinearStepperComponent({
         Error please try refreshing
       </div>
     );
-
+  console.log(mcqAndProgramData);
   return (
     <Box sx={{ width: "100%", padding: 4 }}>
       {mcqAndProgramData ? (
@@ -74,10 +74,10 @@ function VerticalLinearStepperComponent({
                 <Typography variant="body2">{step.TestDescription}</Typography>
                 <p className="py-1">
                   <i className="font-semibold">text link: </i>
-                  {!mcqAndProgramData.IsResultSubmited ? (
+                  {step.IsResultSubmited ? (
                     <a className="text-blue-500 font-medium line-through">
                       {step.Qtype === "MCQ"
-                        ? "https://www.nareshit.net/previewexampage"
+                        ? "https://www.nareshit.net/MCQExamPage"
                         : "http://codeide.nareshit.net/problem/"}
                     </a>
                   ) : (
@@ -90,7 +90,7 @@ function VerticalLinearStepperComponent({
                       className="text-blue-500 font-medium underline"
                     >
                       {step.Qtype === "MCQ"
-                        ? "https://www.nareshit.net/previewexampage"
+                        ? "https://www.nareshit.net/MCQExamPage"
                         : "http://codeide.nareshit.net/problem/"}
                     </a>
                   )}
@@ -125,7 +125,7 @@ function VerticalLinearStepperComponent({
                         Back
                       </Button>
 
-                      {mcqAndProgramData.IsResultSubmited && (
+                      {step.IsResultSubmited && (
                         <button
                           onClick={() => {
                             const url = `http://49.207.10.13:3009/studentResultPage?testId=${step.TestId}&username=Admin@nareshit.net&transactionID=${step.TransactionId}`;
