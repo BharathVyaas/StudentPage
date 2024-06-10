@@ -74,19 +74,26 @@ function VerticalLinearStepperComponent({
                 <Typography variant="body2">{step.TestDescription}</Typography>
                 <p className="py-1">
                   <i className="font-semibold">text link: </i>
-                  <a
-                    href={
-                      step.Qtype === "MCQ"
-                        ? `http://49.207.10.13:3009/MCQExamPage?testID=${step.TestId}&transactionId=${step.TransactionId}&UserName=Admin@nareshit.net`
-                        : `http://codeide.nareshit.net/problem/${step.ProgramId}`
-                    }
-                    className="text-blue-500 font-medium underline"
-                  >
-                    {step.Qtype === "MCQ"
-                      ? "https://www.nareshit.net/previewexampage"
-                      : "http://codeide.nareshit.net/problem/"}
-                  </a>
-                  <p></p>
+                  {mcqAndProgramData.ExamStatus === "Attempted" ? (
+                    <a className="text-blue-500 font-medium underline">
+                      {step.Qtype === "MCQ"
+                        ? "https://www.nareshit.net/previewexampage"
+                        : "http://codeide.nareshit.net/problem/"}
+                    </a>
+                  ) : (
+                    <a
+                      href={
+                        step.Qtype === "MCQ"
+                          ? `http://49.207.10.13:3009/MCQExamPage?testID=${step.TestId}&transactionId=${step.TransactionId}&UserName=Admin@nareshit.net`
+                          : `http://codeide.nareshit.net/problem/${step.ProgramId}`
+                      }
+                      className="text-blue-500 font-medium underline"
+                    >
+                      {step.Qtype === "MCQ"
+                        ? "https://www.nareshit.net/previewexampage"
+                        : "http://codeide.nareshit.net/problem/"}
+                    </a>
+                  )}
                 </p>
                 {mcqAndProgramData.length > 1 && (
                   <Box sx={{ mb: 2 }}>

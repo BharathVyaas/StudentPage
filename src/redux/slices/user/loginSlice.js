@@ -8,9 +8,9 @@ const baseState = {
     isValid: false,
   },
   password: {
-    value: "OyujiWrSN",
-    isDirty: true,
-    isValid: true,
+    value: "",
+    isDirty: false,
+    isValid: false,
   },
   email: {
     value: "",
@@ -59,12 +59,17 @@ export const loginSlice = createSlice({
         state.password.isDirty = true;
       }
 
-      if (!state.password.isValid) {
+      if (!state.password.isValid && state.password.value === "Admin@123") {
         state.password.isValid = true;
       }
 
+      if (state.password.isValid) {
+        if (state.password.value !== "Admin@123")
+          state.password.isValid = false;
+      }
+
       if (state.userName.isValid) {
-        if (state.password) state.isFormValid = true;
+        if (state.password.isValid) state.isFormValid = true;
       }
     },
     setEmail(state, action) {

@@ -11,15 +11,35 @@ export function* loginSaga(action) {
     yield put(loginRequest());
 
     const res = yield call(loginApi, action.payload);
-
+    console.log(res);
     const {
       IsAuthenticated: isAuthenticated,
       studentId: userId,
       UserName: userName,
+      FirstName: firstName,
+      LastName: lastName,
     } = res.data.dbresult[0];
 
     yield put(loginSuccess({ isAuthenticated, userId, userName }));
   } catch (error) {
-    yield put(loginFailure(error));
+    console.log({
+      message: error.response.data.message,
+      status: error.response.data.success,
+      isSuccessResponse: error.response.status,
+    });
+
+    if (error.response.status === 401) {
+      yield put(
+        loginFailure({
+          error: {
+            message: error.response.data.message,
+            status: error.response.data.success,
+            isSuccessResponse: error.response.status,
+          },
+        })
+      );
+    } else {
+      yield put(loginFailure(error));
+    }
   }
 }

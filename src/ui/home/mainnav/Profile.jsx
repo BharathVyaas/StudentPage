@@ -3,7 +3,7 @@ import userplaceholder from "../../../assets/userplaceholder.png";
 
 function ProfileComponent({ userName }) {
   return (
-    <div className="m-4 flex items-center space-x-4 text-[#070707]">
+    <div className="m-4 flex items-center space-x-3 text-[#070707]">
       <img
         src={userplaceholder}
         width={50}
@@ -12,8 +12,8 @@ function ProfileComponent({ userName }) {
         alt="user"
       />
 
-      <div>
-        <p className="font-bold">{userName}</p>
+      <div className="max-w-[190px]">
+        <p className="font-bold text-ellipsis overflow-hidden">{userName}</p>
       </div>
     </div>
   );

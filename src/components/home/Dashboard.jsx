@@ -8,12 +8,10 @@ import { addDays } from "date-fns";
 function DashboardComponent({ userState, getMcqandPrograms }) {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
-  console.log(userState);
-
   useEffect(() => {
     // simply adding selectedDate.toISOString().split("T")[0] returning day - 1
     getMcqandPrograms({
-      studentId: 1113,
+      studentId: userState.userId,
       date: addDays(selectedDate, 1).toISOString().split("T")[0],
     });
   }, [selectedDate, getMcqandPrograms]);

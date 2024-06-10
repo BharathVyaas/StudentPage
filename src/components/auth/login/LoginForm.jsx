@@ -1,11 +1,15 @@
 import { useNavigate } from "react-router";
 import { connect } from "react-redux";
+import { useEffect, useState } from "react";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+
 import { loginDispatch } from "../../../redux/actions/auth";
 import {
   setPassword,
   setUserName,
 } from "../../../redux/slices/user/loginSlice";
-import { useEffect } from "react";
+import AuthMessageHandler from "./loginForm/AuthMessageHandler";
 
 function LoginFormComponent({
   _userName,
@@ -20,18 +24,25 @@ function LoginFormComponent({
 }) {
   const navigate = useNavigate();
 
+  const [pwdVisibility, setPwdVisibility] = useState(false);
+
   useEffect(() => {
     if (_isAuthenticated) {
       navigate("/");
     }
   }, [_isAuthenticated, navigate]);
 
-  const submitHandler = () => {
-    console.log("login");
-    login({ userName: userName.value, password: password.value });
+  const mouseUpHandler = () => {
+    setPwdVisibility(true);
   };
 
-  console.log(formState, isFormValid);
+  const mouseDownHandler = () => {
+    setPwdVisibility(false);
+  };
+
+  const submitHandler = () => {
+    login({ userName: userName.value, password: password.value });
+  };
 
   return (
     <div className="py-12 px-5 flex flex-col text-[#070707] montserrat-md">
@@ -41,11 +52,7 @@ function LoginFormComponent({
         style={{ marginTop: formState === "reject" ? "1.2rem" : "2rem" }}
         className="text-base"
       >
-        {formState === "reject" && (
-          <small className="text-[#ed2224] text-center block mb-[.3rem]">
-            Username or Password is Invalid.
-          </small>
-        )}
+        {formState === "reject" && <AuthMessageHandler />}
         <div className="space-y-6">
           <div className="w-full flex flex-col">
             <label htmlFor="uname">
@@ -71,14 +78,14 @@ function LoginFormComponent({
             />
           </div>
 
-          <div className="w-full flex flex-col">
+          <div className="w-full flex flex-col relative">
             <label htmlFor="pwd">
               <span>Password</span>
               <span className="ms-[.1rem]">*</span>
             </label>
             <input
               id="pwd"
-              type="password"
+              type={pwdVisibility ? "text" : "password"}
               name="pwd"
               placeholder="OyujiWrSN"
               value={password.value}
@@ -93,6 +100,17 @@ function LoginFormComponent({
               }}
               className="p-2 mt-1 bg-blue-800 bg-opacity-[.07] rounded-t border-b-[#070707] border-b-2 outline-none"
             />
+            <span
+              className="absolute bottom-2 right-2 cursor-pointer z-10"
+              onMouseDown={mouseUpHandler}
+              onMouseUp={mouseDownHandler}
+            >
+              {pwdVisibility ? (
+                <VisibilityIcon sx={{ color: "#070707", opacity: ".90" }} />
+              ) : (
+                <VisibilityOffIcon sx={{ color: "#070707", opacity: ".70" }} />
+              )}
+            </span>
           </div>
         </div>
 
