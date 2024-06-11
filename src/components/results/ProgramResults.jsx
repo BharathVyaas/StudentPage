@@ -27,43 +27,13 @@ const StyledTableB_Cell = styled(TableCell)(({ theme }) => ({
   paddingBlock: "1rem",
 }));
 
-const rows = [
-  {
-    name: "Test Case 1",
-    input: "i got candy",
-    expected: "you got candy",
-    output: "they got candy",
-    status: "fail",
-  },
-  {
-    name: "Test Case 2",
-    input: "Ice cream sandwich",
-    expected: "cream sandwich",
-    output: "cream sandwich",
-    status: "fail",
-  },
-  {
-    name: "Test Case 3",
-    input: "test case fail",
-    expected: "you did fail",
-    output: "you took a trun",
-    status: "pass",
-  },
-  {
-    name: "Test Case 4",
-    input: "what a boring day",
-    expected: "no it's not",
-    output: "yes it is",
-    status: "fail",
-  },
-  {
-    name: "Test Case 5",
-    input: "Ice cream sandwich",
-    expected: "you did fail",
-    output: "yes it is",
-    status: "fail",
-  },
-];
+const StyledCaption = styled("caption")(({ theme }) => ({
+  fontSize: "1.2rem",
+  fontWeight: "bold",
+  padding: "1rem",
+  borderTopLeftRadius: "4px",
+  borderTopRightRadius: "4px",
+}));
 
 function ProgramResultsComponent({
   userName,
@@ -85,7 +55,9 @@ function ProgramResultsComponent({
         {programResultsData?.TestCaseName}
       </Typography>
 
-      <p className="mb-2">{programResultsData?.ProgramDescription} </p>
+      <Typography variant="body1" gutterBottom>
+        {programResultsData?.ProgramDescription}
+      </Typography>
 
       <Box display="flex" paddingInlineEnd={1} mb={4}>
         <Typography variant="body1" marginInlineEnd={2}>
@@ -96,48 +68,34 @@ function ProgramResultsComponent({
 
       <Divider />
 
-      <TableContainer component={Paper} sx={{ mt: 3 }}>
-        <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-          <TableHead>
-            <TableRow className="bg-blue-800 bg-opacity-[.10]">
-              <StyledTableCell align="left">
-                <TableSortLabel>No_AttemptsPerBuildSucceeded</TableSortLabel>
-              </StyledTableCell>
-              <StyledTableCell align="left">
-                <TableSortLabel>No_TestCasesPassed</TableSortLabel>
-              </StyledTableCell>
-              <StyledTableCell align="left">
-                <TableSortLabel>No_TestCasesFailed</TableSortLabel>
-              </StyledTableCell>
-              <StyledTableCell align="left">
-                <TableSortLabel>Result</TableSortLabel>
-              </StyledTableCell>
-              <StyledTableCell align="left">
-                <TableSortLabel>Grade</TableSortLabel>
-              </StyledTableCell>
-            </TableRow>
-          </TableHead>
-
+      <TableContainer component={Paper} sx={{ mt: 2, width: "600px" }}>
+        <div className="w-full bg-blue-800 bg-opacity-10">
+          <StyledCaption>Results</StyledCaption>
+        </div>
+        <Table aria-label="program results table">
           <TableBody>
-            <TableRow
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <StyledTableB_Cell component="th" scope="row">
-                {programResultsData?.No_AttemptsPerBuildSucceeded}
+            <TableRow>
+              <StyledTableB_Cell>No. Test Cases Passed</StyledTableB_Cell>
+              <StyledTableB_Cell align="right">
+                {programResultsData?.No_TestCasesPassed}
               </StyledTableB_Cell>
-              <StyledTableB_Cell>
+            </TableRow>
+            <TableRow>
+              <StyledTableB_Cell>No. Test Cases Failed</StyledTableB_Cell>
+              <StyledTableB_Cell align="right">
                 {programResultsData?.No_TestCasesFailed}
               </StyledTableB_Cell>
-              <StyledTableB_Cell>
-                {programResultsData?.No_TestCasesFailed}
-              </StyledTableB_Cell>
-              <StyledTableB_Cell>
+            </TableRow>
+            <TableRow>
+              <StyledTableB_Cell>Result</StyledTableB_Cell>
+              <StyledTableB_Cell align="right">
                 {programResultsData?.Result}
               </StyledTableB_Cell>
-              <StyledTableB_Cell>
-                <Typography variant="body2">
-                  {programResultsData?.Grade}
-                </Typography>
+            </TableRow>
+            <TableRow>
+              <StyledTableB_Cell>Grade</StyledTableB_Cell>
+              <StyledTableB_Cell align="right">
+                {programResultsData?.Grade}
               </StyledTableB_Cell>
             </TableRow>
           </TableBody>

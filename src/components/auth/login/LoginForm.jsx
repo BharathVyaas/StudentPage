@@ -12,7 +12,6 @@ import {
 import AuthMessageHandler from "./loginForm/AuthMessageHandler";
 
 function LoginFormComponent({
-  _userName,
   _isAuthenticated,
   userName,
   password,
@@ -21,6 +20,7 @@ function LoginFormComponent({
   login,
   onNameChange,
   onPwdChange,
+  loginState,
 }) {
   const navigate = useNavigate();
 

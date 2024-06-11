@@ -1,21 +1,46 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const baseState = {
-  isFormValid: false,
+  isFormValid:
+    (JSON.parse(localStorage.getItem("user")).password === "Admin@123"
+      ? true
+      : false) &&
+    localStorage.getItem("user") &&
+    JSON.parse(localStorage.getItem("user")).userName
+      ? true
+      : false,
   userName: {
-    value: "",
-    isDirty: false,
-    isValid: false,
+    value: localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")).userName
+      : "",
+    isDirty: localStorage.getItem("user") ? true : false,
+    isValid:
+      localStorage.getItem("user") &&
+      JSON.parse(localStorage.getItem("user")).userName
+        ? true
+        : false,
   },
   password: {
-    value: "",
-    isDirty: false,
-    isValid: false,
+    value: localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")).password
+      : "",
+    isDirty: localStorage.getItem("user") ? true : false,
+    isValid:
+      localStorage.getItem("user") &&
+      JSON.parse(localStorage.getItem("user")).password === "Admin@123"
+        ? true
+        : false,
   },
   email: {
-    value: "",
-    isDirty: false,
-    isValid: false,
+    value: localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")).email
+      : "",
+    isDirty: localStorage.getItem("user") ? true : false,
+    isValid:
+      localStorage.getItem("user") &&
+      JSON.parse(localStorage.getItem("user")).email
+        ? true
+        : false,
   },
 };
 
@@ -24,6 +49,14 @@ export const loginSlice = createSlice({
   initialState: { ...baseState },
   reducers: {
     setUserName(state, action) {
+      let user = localStorage.getItem("user");
+
+      if (!user) user = "{}";
+      user = JSON.parse(user);
+      user.userName = action.payload.value;
+
+      localStorage.setItem("user", JSON.stringify(user));
+
       state.userName.value = action.payload.value;
 
       if (!state.userName.isDirty) {
@@ -53,6 +86,14 @@ export const loginSlice = createSlice({
       }
     },
     setPassword(state, action) {
+      let user = localStorage.getItem("user");
+
+      if (!user) user = "{}";
+      user = JSON.parse(user);
+      user.password = action.payload.value;
+
+      localStorage.setItem("user", JSON.stringify(user));
+
       state.password.value = action.payload.value;
 
       if (!state.password.isDirty) {
@@ -74,6 +115,14 @@ export const loginSlice = createSlice({
       }
     },
     setEmail(state, action) {
+      let user = localStorage.getItem("user");
+
+      if (!user) user = "{}";
+      user = JSON.parse(user);
+      user.email = action.payload.value;
+
+      localStorage.setItem("user", JSON.stringify(user));
+
       state.email.value = action.payload.value;
 
       if (!state.email.isDirty) {
