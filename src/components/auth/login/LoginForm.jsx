@@ -20,7 +20,6 @@ function LoginFormComponent({
   login,
   onNameChange,
   onPwdChange,
-  loginState,
 }) {
   const navigate = useNavigate();
 

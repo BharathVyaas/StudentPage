@@ -20,7 +20,7 @@ const baseState = {
   lastName: null,
   email: null,
   authToken: null,
-  isAuthenticated: null,
+  isAuthenticated: localStorage.getItem("user").IsAuthenticated,
   profile: baseProfile,
   isLoading: false,
   isError: false,

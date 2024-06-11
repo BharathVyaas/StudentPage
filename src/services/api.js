@@ -33,6 +33,26 @@ export async function loginApi(payload) {
   try {
     const res = await api.post("AuthenticateStudent", payload);
 
+    if (
+      res &&
+      res.data &&
+      res.data.dbresult &&
+      res.data.dbresult[0] &&
+      res.data.dbresult[0].IsAuthenticated
+    ) {
+      let user =
+        localStorage.getItem("user") &&
+        JSON.parse(localStorage.getItem("user"));
+
+      if (!user) user = {};
+
+      user.IsAuthenticated = true;
+
+      user = JSON.stringify(user);
+
+      localStorage.setItem("user", user);
+    }
+
     return res;
   } catch (error) {
     throw error;
