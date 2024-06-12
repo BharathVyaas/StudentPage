@@ -50,9 +50,9 @@ function ResultsViewComponent({ programResultsData }) {
                   color:
                     String(
                       programResultsData.mainTable?.Result
-                    ).toLowerCase() === "pass"
-                      ? "green"
-                      : "red",
+                    ).toLowerCase() === "fail"
+                      ? "red"
+                      : "green",
                 }}
                 align="right"
               >

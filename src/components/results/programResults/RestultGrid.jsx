@@ -42,7 +42,7 @@ function ResultGridComponent({ programResultsData }) {
                 <TableSortLabel>Acutal Output</TableSortLabel>
               </StyledTableCell>
               <StyledTableCell align="left">
-                <TableSortLabel>Test Status</TableSortLabel>
+                <TableSortLabel>Test Result</TableSortLabel>
               </StyledTableCell>
             </TableRow>
           </TableHead>

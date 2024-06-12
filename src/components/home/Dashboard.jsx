@@ -4,24 +4,39 @@ import Steps from "./dashboard/Steps";
 import { connect } from "react-redux";
 import { getMcqandProgramsDispatch } from "../../redux/actions/dashboard";
 import { addDays } from "date-fns";
+import usePageVisibility from "../../hooks/dashboard/usePageVisibility";
 
-function DashboardComponent({
-  userState,
-  macqandprogramState,
-  getMcqandPrograms,
-}) {
+let first = 1;
+const getFirstData = (selectedDate) => {
+  first += 1;
+  return selectedDate.toISOString().split("T")[0];
+};
+
+function DashboardComponent({ userState, getMcqandPrograms }) {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
-  useEffect(() => {
+  const dispatchGetMcqandPrograms = () => {
+    // Dates are not accruate in the calander.
     // simply adding selectedDate.toISOString().split("T")[0] returning day - 1
     if (userState.userId && selectedDate)
       getMcqandPrograms({
         studentId: userState.userId,
         date:
-          macqandprogramState === "stale"
-            ? selectedDate.toISOString().split("T")[0]
+          first === 1
+            ? getFirstData(selectedDate)
             : addDays(selectedDate, 1).toISOString().split("T")[0],
       });
+  };
+
+  const onVisible = () => {
+    dispatchGetMcqandPrograms();
+  };
+
+  // update data if user navigated back to page after click on different tab
+  usePageVisibility({ onVisible });
+
+  useEffect(() => {
+    dispatchGetMcqandPrograms();
   }, [selectedDate, getMcqandPrograms]);
 
   return (
