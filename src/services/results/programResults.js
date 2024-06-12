@@ -4,9 +4,17 @@ export const programResultsApi = async (payload) => {
   try {
     const res = await api.post("RetriveProgramResults", payload);
 
-    console.log(res);
+    const mainTable =
+      res.data?.dbresult?.[res.data?.dbresult?.length - 1] || {};
+    const testCasesTable = res.data?.dbresult || [];
 
-    return res;
+    const data = { mainTable, testCasesTable };
+    const status = res.status;
+
+    return {
+      data,
+      status,
+    };
   } catch (error) {
     throw error;
   }

@@ -14,7 +14,7 @@ export function* programResultsSaga(action) {
 
     yield put(
       fetchProgramSuccess({
-        data: res.data.dbresult[res.data.dbresult?.length - 1] || [],
+        data: res.data || {},
         status: res.status || null,
       })
     );

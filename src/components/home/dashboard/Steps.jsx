@@ -94,7 +94,7 @@ function VerticalLinearStepperComponent({
                           const url =
                             step.Qtype === "MCQ"
                               ? `http://49.207.10.13:3009/MCQExamPage?testID=${step.TestId}&transactionId=${step.TransactionId}&UserName=${userName}`
-                              : `http://localhost:3010/problem/${step.ProgramId}?email=${email}&username=${userName}`;
+                              : `http://localhost:3010/problem/${step.ProgramId}?email=${email}&username=${userName}&source=dashboard`;
                           window.open(url, "_blank", "noopener,noreferrer");
                         }}
                         sx={{

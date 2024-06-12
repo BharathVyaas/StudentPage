@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import { connect } from "react-redux";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
@@ -10,6 +10,7 @@ import {
   setUserName,
 } from "../../../redux/slices/user/loginSlice";
 import AuthMessageHandler from "./loginForm/AuthMessageHandler";
+import { SER_AO_INSTANCE } from "../../../services/auth/LoginObservers";
 
 function LoginFormComponent({
   _isAuthenticated,
@@ -21,15 +22,14 @@ function LoginFormComponent({
   onNameChange,
   onPwdChange,
 }) {
+  const SER_AO_loginListener = () => {
+    navigate("/");
+  };
+
+  SER_AO_INSTANCE.SER_AO_subescribe(SER_AO_loginListener);
   const navigate = useNavigate();
 
   const [pwdVisibility, setPwdVisibility] = useState(false);
-
-  useEffect(() => {
-    if (_isAuthenticated) {
-      navigate("/");
-    }
-  }, [_isAuthenticated, navigate]);
 
   const mouseUpHandler = () => {
     setPwdVisibility(true);

@@ -1,34 +1,17 @@
 import { connect } from "react-redux";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { IconButton, Button, Menu, MenuItem } from "@mui/material";
-import { useEffect, useState } from "react";
-import userplaceholder from "../../../assets/userplaceholder.png";
-import { motion } from "framer-motion";
-import { logout as logoutAction } from "../../../redux/slices/user/userSlice";
-import { resetLoginState } from "../../../redux/slices/user/loginSlice";
 import { useNavigate } from "react-router";
 
+import userplaceholder from "../../../assets/userplaceholder.png";
+import { logout as logoutAction } from "../../../redux/slices/user/userSlice";
+import { resetLoginState } from "../../../redux/slices/user/loginSlice";
+
 function ProfileComponent({ userName, logout, resetLoginStateDispatch }) {
-  const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  useEffect(() => {
-    if (!userName) navigate("/login");
-  }, [userName]);
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   const handleLogout = () => {
     resetLoginStateDispatch();
     logout();
-    handleClose();
+    navigate("/login");
   };
 
   return (

@@ -5,6 +5,7 @@ import {
   loginSuccess,
 } from "../../slices/user/userSlice";
 import { loginApi } from "../../../services/api";
+import { SER_AO_INSTANCE } from "../../../services/auth/LoginObservers";
 
 export function* loginSaga(action) {
   try {
@@ -21,6 +22,8 @@ export function* loginSaga(action) {
       LastName: lastName,
     } = res.data.dbresult[0];
 
+    const statusCode = res.status;
+
     yield put(
       loginSuccess({
         isAuthenticated,
@@ -29,8 +32,11 @@ export function* loginSaga(action) {
         firstName,
         lastName,
         email,
+        statusCode,
       })
     );
+
+    SER_AO_INSTANCE.SER_AO_D_login(res);
   } catch (error) {
     console.log({
       message: error.response.data.message,

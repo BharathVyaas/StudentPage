@@ -4,16 +4,13 @@ import { useNavigate } from "react-router";
 
 import Dashboard from "../../components/home/Dashboard";
 import MainNav from "../../ui/home/MainNav";
-import TopNav from "../../ui/home/TopNav";
 
 function HomeComponent({ isAuthenticated }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/login");
-    }
-  }, [navigate, isAuthenticated]);
+    if (!isAuthenticated) navigate("/login");
+  }, [isAuthenticated, navigate]);
 
   return (
     <>
