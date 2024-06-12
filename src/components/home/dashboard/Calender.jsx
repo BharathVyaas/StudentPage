@@ -1,3 +1,5 @@
+import { addDays } from "date-fns";
+import { useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
@@ -6,11 +8,7 @@ const CustomCalendar = ({ selectedDate, setSelectedDate }) => {
     <Calendar
       onChange={setSelectedDate}
       value={selectedDate}
-      tileClassName={({ date, view }) => {
-        if ((view === "month" && date.getDay() === 0) || date.getDay() === 6) {
-          return "week-day";
-        }
-      }}
+      defaultValue={addDays(new Date(), 1)}
       className="custom-calendar"
     />
   );

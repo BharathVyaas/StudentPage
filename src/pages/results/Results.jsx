@@ -12,7 +12,7 @@ function Results() {
 
   useEffect(() => {
     if (!programId) navigate("/");
-  }, []);
+  }, [programId, navigate]);
 
   return (
     <>

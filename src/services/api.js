@@ -17,9 +17,22 @@ export async function getDailyTasksApi(payload) {
 
 export async function getMcqandProgramsApi(payload) {
   try {
-    const mcqRes = await api.post("RetriveTestsBystudentId_Mcq", payload);
+    function formatDateToLocal(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
 
-    const codeRes = await api.post("RetriveTestsBystudentId_code", payload);
+    const mcqRes = await api.post("RetriveTestsBystudentId_Mcq", {
+      studentId: payload.studentId,
+      createdAt: formatDateToLocal(payload.createdAt),
+    });
+
+    const codeRes = await api.post("RetriveTestsBystudentId_code", {
+      studentId: payload.studentId,
+      createdAt: formatDateToLocal(payload.createdAt),
+    });
 
     const resObj = getMcqandProgramsService(mcqRes, codeRes);
 
