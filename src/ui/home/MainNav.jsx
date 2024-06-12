@@ -1,4 +1,5 @@
 import {
+  Box,
   List,
   ListItem,
   ListItemAvatar,
@@ -43,7 +44,12 @@ function SideNav() {
         <Profile />
       </div>
 
+      <Divider />
+
       <MenuList>
+        <Box className="my-3" marginLeft={2}>
+          <Typography>Navigation</Typography>
+        </Box>
         <MenuItem sx={{ paddingBlock: 0, marginBlock: 0 }} onClick={dashboard}>
           <List sx={{ paddingBlock: 0, marginBlock: 0.4 }} className="w-full">
             <ListItem
@@ -59,26 +65,6 @@ function SideNav() {
               <ListItemText primary="Dashboard" />
             </ListItem>
           </List>
-        </MenuItem>
-
-        <MenuItem
-          sx={{ paddingBlock: 0, marginBlock: 0 }}
-          onClick={programResults}
-        >
-          <ListItem
-            style={{
-              backgroundColor:
-                location.pathname === "/program-results"
-                  ? "rgba(30,64,175,.20)"
-                  : null,
-            }}
-            className="rounded"
-          >
-            <ListItemAvatar>
-              <ArticleIcon fontSize="medium" />
-            </ListItemAvatar>
-            <Typography variant="body1">Results</Typography>
-          </ListItem>
         </MenuItem>
       </MenuList>
     </nav>

@@ -23,7 +23,7 @@ function ProgramResultsComponent({
   return (
     <Box p={5}>
       <Typography variant="h4" fontWeight="bold" gutterBottom>
-        {programResultsData?.mainTable?.TestCaseName}
+        {programResultsData?.mainTable?.ProgramName}
       </Typography>
 
       <Typography variant="body1" gutterBottom>

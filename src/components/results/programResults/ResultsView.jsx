@@ -62,7 +62,9 @@ function ResultsViewComponent({ programResultsData }) {
             <TableRow>
               <StyledTableBCell>Grade</StyledTableBCell>
               <StyledTableBCell align="right">
-                {programResultsData.mainTable?.Grade}
+                <span className="font-bold">
+                  {programResultsData.mainTable?.Grade}
+                </span>
               </StyledTableBCell>
             </TableRow>
           </TableBody>
